@@ -1,23 +1,16 @@
-import { fetchImages } from '../js/fetchImages';
+import { fetchImages } from './js/fetchImages';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const input = document.querySelector('.search-form-input');
-const btnSearch = document.querySelector('.search-form-button');
-const gallery = document.querySelector('.gallery');
-const btnLoadMore = document.querySelector('.load-more');
+let getEl = selector => document.querySelector(selector);
+
+const input = getEl('.search-form__input');
+const btnSearch = getEl('.search-form__btn');
+const gallery = getEl('.gallery');
+const btnLoadMore = getEl('.load-more-btn');
+
 let gallerySimpleLightbox = new SimpleLightbox('.gallery a');
-
-// const { height: cardHeight } = document
-//   .querySelector('.gallery')
-//   .firstElementChild.getBoundingClientRect();
-
-// window.scrollBy({
-//   top: cardHeight * 2,
-
-//   behavior: 'smooth',
-// });
 
 btnLoadMore.style.display = 'none';
 
@@ -70,19 +63,20 @@ function renderImageList(images) {
     .map(image => {
       console.log('img', image);
       return `<div class="photo-card">
-       <a href="${image.largeImageURL}"><img class="photo" src="${image.webformatURL}" alt="${image.tags}" title="${image.tags}" loading="lazy"/></a>
+       <a href="${image.largeImageURL}">
+       <img class="photo-card__img" src="${image.webformatURL}" alt="${image.tags}" title="${image.tags}" loading="lazy"/></a>
         <div class="info">
-           <p class="info-item">
-    <b>Likes</b> <span class="info-item-api"> ${image.likes} </span>
-</p>
-            <p class="info-item">
-                <b>Views</b> <span class="info-item-api">${image.views}</span>  
+          <p class="info-item">
+            <b>Likes</b> <span class="info-item-value"> ${image.likes} </span>
+          </p>
+          <p class="info-item">
+            <b>Views</b> <span class="info-item-value">${image.views}</span>  
             </p>
             <p class="info-item">
-                <b>Comments</b> <span class="info-item-api">${image.comments}</span>  
+              <b>Comments</b> <span class="info-item-value">${image.comments}</span>  
             </p>
             <p class="info-item">
-                <b>Downloads</b> <span class="info-item-api">${image.downloads}</span> 
+              <b>Downloads</b> <span class="info-item-value">${image.downloads}</span> 
             </p>
         </div>
     </div>`;
